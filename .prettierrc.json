@@ -1,0 +1,15 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "endOfLine": "lf",
+  "plugins": [
+    "prettier-plugin-multiline-arrays"
+  ],
+  "multilineArraysWrapThreshold": 0,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": { "parser": "json" }
+    }
+  ]
+}

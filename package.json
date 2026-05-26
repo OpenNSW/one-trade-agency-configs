@@ -1,0 +1,20 @@
+{
+  "name": "one-trade-agency-configs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JSON task configurations and form schemas for OneTrade agency integrations.",
+  "scripts": {
+    "lint": "prettier --check \"**/*.json\"",
+    "format": "prettier --write \"**/*.json\"",
+    "validate": "node scripts/validate-configs.mjs",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "check": "npm run lint && npm run validate && npm run manifest && node scripts/check-manifests.mjs"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "prettier-plugin-multiline-arrays": "^4.1.8"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
