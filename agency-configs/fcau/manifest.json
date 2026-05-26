@@ -1,0 +1,10 @@
+{
+  "version": "0.0.0-dev",
+  "generated": "scripts/generate-manifest.mjs",
+  "agency": "fcau",
+  "tasks": {
+    "fcau_application_review_v1": "agency-configs/fcau/task-configs/fcau_application_review_v1.json",
+    "fcau_sample_assessment_v1": "agency-configs/fcau/task-configs/fcau_sample_assessment_v1.json",
+    "fcau_sample_decision_v1": "agency-configs/fcau/task-configs/fcau_sample_decision_v1.json"
+  }
+}
