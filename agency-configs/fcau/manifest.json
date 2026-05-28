@@ -4,7 +4,10 @@
   "agency": "fcau",
   "tasks": {
     "fcau_application_review_v1": "agency-configs/fcau/task-configs/fcau_application_review_v1.json",
+    "fcau_issue_certificate_v1": "agency-configs/fcau/task-configs/fcau_issue_certificate_v1.json",
+    "fcau_lab_test_v1": "agency-configs/fcau/task-configs/fcau_lab_test_v1.json",
     "fcau_sample_assessment_v1": "agency-configs/fcau/task-configs/fcau_sample_assessment_v1.json",
-    "fcau_sample_decision_v1": "agency-configs/fcau/task-configs/fcau_sample_decision_v1.json"
+    "fcau_sample_decision_v1": "agency-configs/fcau/task-configs/fcau_sample_decision_v1.json",
+    "fcau_sample_wait_v1": "agency-configs/fcau/task-configs/fcau_sample_wait_v1.json"
   }
 }
