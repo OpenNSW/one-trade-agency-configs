@@ -29,26 +29,26 @@ for (const agency of agencies) {
   const taskConfigsDir = join(AGENCIES_DIR, agency, "task-configs");
   const files = listJsonFiles(taskConfigsDir);
 
-  const tasks = {};
+  const byId = {};
   for (const file of files) {
     const obj = JSON.parse(readFileSync(file, "utf8"));
     if (typeof obj?.taskCode === "string" && obj.taskCode.length > 0) {
-      tasks[obj.taskCode] = file.replaceAll("\\", "/");
+      byId[obj.taskCode] = file.replaceAll("\\", "/");
     }
   }
 
   // Sort keys for stable output
-  const sortedTasks = {};
-  for (const key of Object.keys(tasks).sort()) sortedTasks[key] = tasks[key];
+  const sortedById = {};
+  for (const key of Object.keys(byId).sort()) sortedById[key] = byId[key];
 
   const manifest = {
     version: VERSION,
     generated: "scripts/generate-manifest.mjs",
     agency,
-    tasks: sortedTasks,
+    byId: sortedById,
   };
 
   const outputPath = join(AGENCIES_DIR, agency, "manifest.json");
   writeFileSync(outputPath, JSON.stringify(manifest, null, 2) + "\n");
-  console.log(`Wrote ${outputPath}: ${Object.keys(sortedTasks).length} task(s)`);
+  console.log(`Wrote ${outputPath}: ${Object.keys(sortedById).length} task(s)`);
 }

@@ -6,7 +6,7 @@ Every JSON file under `agency-configs/<agency_name>/task-configs/` is a single J
 
 ## The `taskCode` field
 
-Every task config has a top-level `taskCode` field — a non-empty string that uniquely identifies the task **within its agency**. Consumers use `taskCode` to look up a task config via `agency-configs/<agency>/manifest.json#tasks`.
+Every task config has a top-level `taskCode` field — a non-empty string that uniquely identifies the task **within its agency**. Consumers use `taskCode` to look up a task config via `agency-configs/<agency>/manifest.json#byId`.
 
 **Uniqueness is agency-scoped.** The same `taskCode` value may appear in two different agencies without conflict. The naming convention below is not machine-checked — it is a contributor-facing guideline.
 

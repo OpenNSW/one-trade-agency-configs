@@ -34,7 +34,7 @@ import { join } from "node:path";
 
 const root = process.env.ONETRADE_CONFIGS_PATH ?? "./one-trade-agency-configs";
 const manifest = JSON.parse(readFileSync(join(root, "agency-configs/fcau/manifest.json"), "utf8"));
-const path = manifest.tasks["fcau_application_review_v1"];
+const path = manifest.byId["fcau_application_review_v1"];
 const config = JSON.parse(readFileSync(join(root, path), "utf8"));
 ```
 
@@ -61,14 +61,14 @@ Record the SHA in the consumer's config so the same content resolves on every bu
 
 ## Code samples (resolve taskCode → fetch config)
 
-The pattern is always the same: fetch `<agency>/manifest.json`, look up `tasks[taskCode]`, then read that path.
+The pattern is always the same: fetch `<agency>/manifest.json`, look up `byId[taskCode]`, then read that path.
 
 ### bash + jq + curl
 
 ```bash
 BASE="https://raw.githubusercontent.com/OpenNSW/one-trade-agency-configs/main"
 MANIFEST=$(curl -s "$BASE/agency-configs/fcau/manifest.json")
-CONFIG_PATH=$(echo "$MANIFEST" | jq -r '.tasks["fcau_application_review_v1"]')
+CONFIG_PATH=$(echo "$MANIFEST" | jq -r '.byId["fcau_application_review_v1"]')
 curl -s "$BASE/$CONFIG_PATH" | jq .
 ```
 
@@ -79,7 +79,7 @@ const BASE = "https://raw.githubusercontent.com/OpenNSW/one-trade-agency-configs
 
 async function getTaskConfig(agency, taskCode) {
   const manifest = await fetch(`${BASE}/agency-configs/${agency}/manifest.json`).then((r) => r.json());
-  const path = manifest.tasks[taskCode];
+    const path = manifest.byId[taskCode];
   if (!path) throw new Error(`Unknown taskCode: ${taskCode}`);
   return fetch(`${BASE}/${path}`).then((r) => r.json());
 }
@@ -97,7 +97,7 @@ BASE = "https://raw.githubusercontent.com/OpenNSW/one-trade-agency-configs/main"
 
 def get_task_config(agency, task_code):
     manifest = json.load(urlopen(f"{BASE}/agency-configs/{agency}/manifest.json"))
-    path = manifest["tasks"].get(task_code)
+    path = manifest["byId"].get(task_code)
     if not path:
         raise KeyError(task_code)
     return json.load(urlopen(f"{BASE}/{path}"))
@@ -125,12 +125,12 @@ func getTaskConfig(agency, taskCode string) (map[string]any, error) {
     }
     defer resp.Body.Close()
     var manifest struct {
-        Tasks map[string]string `json:"tasks"`
+        ById map[string]string `json:"byId"`
     }
     if err := json.NewDecoder(resp.Body).Decode(&manifest); err != nil {
         return nil, err
     }
-    path, ok := manifest.Tasks[taskCode]
+    path, ok := manifest.ById[taskCode]
     if !ok {
         return nil, fmt.Errorf("unknown taskCode: %s", taskCode)
     }
@@ -164,7 +164,7 @@ const [configsManifest, templatesManifest] = await Promise.all([
   fetch(`${BASE_TEMPLATES}/manifest.json`).then((r) => r.json()),
 ]);
 
-const configPath = configsManifest.tasks["fcau_application_review_v1"];
+const configPath = configsManifest.byId["fcau_application_review_v1"];
 const config = await fetch(`${BASE_CONFIGS}/${configPath}`).then((r) => r.json());
 
 const reviewFormPath = templatesManifest.byId[config.forms.review];

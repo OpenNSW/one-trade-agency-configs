@@ -19,14 +19,14 @@ See [architecture.md](architecture.md) for a full description of the `agency-con
   "version": "0.0.0-dev",               // tracks repo maturity; will become semver post-1.0
   "generated": "scripts/generate-manifest.mjs",
   "agency": "fcau",                          // the agency this manifest describes
-  "tasks": {
+  "byId": {
     "<taskCode>": "<repo-root-path>",        // taskCode → path from repo root (under agency-configs/)
     ...
   }
 }
 ```
 
-### `tasks` map
+### `byId` map
 
 Keys are `taskCode` values (sorted alphabetically for stable diffs). Values are paths relative to the repository root — the same base you use to construct a GitHub raw URL.
 
@@ -34,7 +34,7 @@ Example:
 
 ```json
 {
-  "tasks": {
+  "byId": {
     "fcau_application_review_v1": "agency-configs/fcau/task-configs/fcau_application_review_v1.json",
     "fcau_sample_assessment_v1":  "agency-configs/fcau/task-configs/fcau_sample_assessment_v1.json",
     "fcau_sample_decision_v1":    "agency-configs/fcau/task-configs/fcau_sample_decision_v1.json"
@@ -44,12 +44,12 @@ Example:
 
 ## Consuming the manifest
 
-The pattern is: fetch `<agency>/manifest.json`, look up `tasks[taskCode]` to get the path, then fetch that path.
+The pattern is: fetch `<agency>/manifest.json`, look up `byId[taskCode]` to get the path, then fetch that path.
 
 ```bash
 BASE="https://raw.githubusercontent.com/OpenNSW/one-trade-agency-configs/main"
 MANIFEST=$(curl -s "$BASE/agency-configs/fcau/manifest.json")
-PATH=$(echo "$MANIFEST" | jq -r '.tasks["fcau_application_review_v1"]')
+PATH=$(echo "$MANIFEST" | jq -r '.byId["fcau_application_review_v1"]')
 curl -s "$BASE/$PATH" | jq .
 ```
 

@@ -2,7 +2,7 @@
   "version": "0.0.0-dev",
   "generated": "scripts/generate-manifest.mjs",
   "agency": "fcau",
-  "tasks": {
+  "byId": {
     "fcau_application_review_v1": "agency-configs/fcau/task-configs/fcau_application_review_v1.json",
     "fcau_issue_certificate_v1": "agency-configs/fcau/task-configs/fcau_issue_certificate_v1.json",
     "fcau_lab_test_v1": "agency-configs/fcau/task-configs/fcau_lab_test_v1.json",
